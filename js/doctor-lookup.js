@@ -12,13 +12,8 @@ export class DoctorLookup{
   constructor(){
   }
 
-  // getSpecialties(showSpecialties){
-  //   let url = `https://api.betterdoctor.com/2016-03-01/specialties?user_key=${apiKey}`
-  //   return
-  // }
 
   getSpecialtiesByCategory(specialties){
-
     let categoryArray = [];
     let categories = [];
     let init = 0;
