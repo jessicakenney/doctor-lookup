@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="build/css/vendor.css">
-    <!-- <link href="css/styles.css" rel="stylesheet" text="text/css"> -->
+    <link href="css/styles.css" rel="stylesheet" text="text/css">
     <script src="build/js/vendor.min.js"></script>
     <script type="text/javascript" src="build/js/app.js"></script>
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
   <body>
     <div class="container">
       <div class="jumbotron">
-        <h2>Looking for a Doctor? </h2>
+        <h2>Hi Portland: Looking for a Doctor? </h2>
       </div>
       <form id="specialty-option">
         <div class="form-group">
@@ -21,15 +21,17 @@
       </form>
     <div class="row">
        <div class="col-md-4">
-         <div class="well" id="">
-           <h3>Specialty Categories</h3>
-           <ul id="category-list">
-           </ul>
+         <div id="show-categories" >
+           <div class="well">
+             <h3>Specialty Categories</h3>
+              <ul id="category-list">
+              </ul>
+           </div>
          </div>
        </div>
        <div class="col-md-4">
-        <div class="well">
-          <div class="show-specialties">
+        <div id="show-specialties">
+          <div class="well">
             <h3>Specialties</h3>
             <ul id="specialty-list">
             </ul>
@@ -37,8 +39,8 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="well">
-          <div class="show-doctors">
+        <div id="show-doctors">
+          <div class="well">
           </div>
         </div>
       </div>
