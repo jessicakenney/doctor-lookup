@@ -1,0 +1,21 @@
+{
+  "name": "doctor-lookup",
+  "description": "",
+  "main": "doctor-lookup-interface.js",
+  "authors": [],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "moment": "^2.18.1",
+    "chart.js": "^2.7.0"
+  }
+}
