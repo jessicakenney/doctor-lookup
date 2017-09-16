@@ -3,6 +3,8 @@
   <head>
     <link rel="stylesheet" href="build/css/vendor.css">
     <link href="css/styles.css" rel="stylesheet" text="text/css">
+    <!-- <script src="js/tether.min.js"></script> -->
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <script src="build/js/vendor.min.js"></script>
     <script type="text/javascript" src="build/js/app.js"></script>
     <meta charset="utf-8">
@@ -10,20 +12,21 @@
   </head>
   <body>
     <div class="container">
-      <div class="jumbotron">
-        <h2>Hi Portland: Looking for a Doctor? </h2>
-      </div>
+        <h1>DoctorFinder</h1>
+        <h2>[PDX] </h2>
+        <hr>
       <form id="specialty-option">
         <div class="form-group">
-         <button class="btn-default" type="submit" name="btn">Find By Specialty</button>
-         <hr>
+         <button class="btn btn-primary" type="submit" >Find By Specialty</button>
+         <button class="btn btn-primary" type="submit" disabled >Find By Sympton</button>
         </div>
       </form>
     <div class="row">
        <div class="col-md-4">
          <div id="show-categories" >
            <div class="well">
-             <h3>Specialty Categories</h3>
+             <h3>Categories</h3>
+             <hr>
               <ul id="category-list">
 
               </ul>
@@ -35,6 +38,7 @@
           <div class="well">
             <h3>Specialties</h3>
             <h2 id="specialty-title"></h2>
+            <hr>
             <ul id="specialty-list">
 
             </ul>
@@ -44,6 +48,12 @@
       <div class="col-md-4">
         <div id="show-doctors">
           <div class="well">
+            <h3>Doctors</h3>
+            <h2 id="doctor-title"></h2>
+            <hr>
+            <ul id="doctor-list">
+
+            </ul>
           </div>
         </div>
       </div>

@@ -2,16 +2,26 @@ html{
   position: relative;
   min-height: 100%;
 }
+.jumbotron {
+}
 body{
-  /*background-image: url(bike.jpg);*/
+  background-image: url(background1.jpg);
   background-repeat: no-repeat;
+  /*background: url(images/bg.jpg) no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
   /*font-family: cursive;*/
 }
-.jumbotron{
-  text-align: center;
+h1 {
+  color: black;
+  /*text-align: center;*/
   font-weight: bolder;
   background-color: inherit;
+}
+h3{
+  
 }
 #show-categories {
   display: none;
@@ -30,8 +40,12 @@ ul#specialty-list li {
   cursor: pointer;
   color: blue;
 }
-ul#specialty-list li:hover {
+ul#doctor-list li:hover {
   text-decoration: underline;
+}
+ul#doctor-list li {
+  cursor: pointer;
+  color: blue;
 }
 #show-doctors {
   display: none;

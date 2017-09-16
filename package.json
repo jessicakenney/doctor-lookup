@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "chart.js": "^2.7.0",
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "tether": "^1.4.0"
   }
 }
