@@ -50,3 +50,6 @@ ul#doctor-list li {
 #show-doctors {
   display: none;
 }
+#show-doctor-detail {
+  display: none;
+}

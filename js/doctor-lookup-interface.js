@@ -17,13 +17,6 @@ $(document).ready(function() {
       // Specialty Lists (by Category)
       $('ul#specialty-list').prepend(`<h3 class="show-title-cat" id="show-${category.name}-title">[${category.name}]</h3>`);
 
-      //sort the specialties.name alphabetically
-      //make an array of names to sort
-      // category.specialties.sort(specialtyCompare);
-      // sortedNames.forEach(function(name){
-      //   console.log("Sort---> "+name);
-      // })
-      //now go through specialties by sortedName
       category.specialties.forEach(function(specialty){
         console.log("Sort---> "+specialty.name);
         $('ul#specialty-list').append(`<li class="show-${category.name}-specialties" id="${specialty.uid}"data-toggle="tooltip" data-placement="bottom" title="${specialty.description}">${specialty.name}</li>`);
@@ -31,20 +24,18 @@ $(document).ready(function() {
     });
  };
 
-//  function specialtyCompare(a,b) {
-//   if (a.name < b.name)
-//     return -1;
-//   if (a.name > b.name)
-//     return 1;
-//   return 0;
-// }
-
 
  let displayDoctors = function(doctors,specialty){
+
     $('ul#doctor-list').prepend(`<h3 class="show-title-doc" id="show-${specialty}-title">[${specialty}]</h3>`);
+
     doctors.forEach(function(doctor){
       //console.log("DOCTOR"+doctor.first+" "+doctor.last+" Specialty"+specialty);
       $('ul#doctor-list').append(`<li class="${doctors-specialty}" id="${doctor.last}"> ${doctor.first} ${doctor.last} ${doctor.title}</li>`);
+
+     //$(`.show-${doctorId}-doctor-detail`).show();
+
+      $('ul#doctor-detail').append(`<li class="show-${doctor.last}-doctor-detail" id=""> DETAILS..${doctor.first} ${doctor.last} ${doctor.title}</li>`);
 
       // //-----------Modal for remaining doctorinfor?
       // <!-- Button trigger modal -->
@@ -79,11 +70,23 @@ $(document).ready(function() {
  //--------------- Find By Specialty Option --------------------//
  $('#specialty-option').submit(function(event) {
     event.preventDefault();
-    //alert("You are in specialtyoption");
     $("#category-list li").remove();
     let doctorLookup = new DoctorLookup();
 
+     $(".show-title-cat").remove();
+     $("ul#specialty-list > li").remove();
+     $("#show-specialties").hide();
+
+     $("ul#doctor-list > h3").remove();
+     $("ul#doctor-list > li").remove();
+     $("#show-doctors").hide();
+
+     $("h3.show-title-doc").remove();
+     $("ul#doctor-detail > li").remove();
+     $("#show-doctor-detail").hide();
+
     doctorLookup.getSpecialties(displaySpecialties);
+
 
  //--------------- Category- click --------------------//
   $("ul#category-list").on('click', 'li',function(){
@@ -97,9 +100,13 @@ $(document).ready(function() {
      //alert("Show specialties in a category "+category);
      //get id of category clicked
      //hide everything ..then show what was clicked
-     $("#show-specialties").show();
      $("#specialty-list li").hide();
      $(`.show-title-cat`).hide();
+     $("#show-doctors").hide();
+     $("#show-doctor-detail").hide();
+
+
+     $("#show-specialties").show();
      $(`.show-${category}-specialties`).show();
      $(`#show-${category}-title`).show();
 
@@ -112,15 +119,18 @@ $(document).ready(function() {
  //--------------- Specialty- click --------------------//
   $("ul#specialty-list").on('click', 'li',function(){
     let specialty = $(this).attr("id");
-        console.log("THIS  "+$(this));
-        console.log("ID   "+specialty);
+
       //when we click on a speciality, do a API request for dr's
       //in that specialty
     doctorLookup.getDoctorsBySpecialty(specialty,displayDoctors);
      $("#show-doctors").show();
 
      $("#doctor-list li").hide();
-     $(`.show-title-doc`).hide();
+     $("#show-doctor-detail").hide();
+     $("h3.show-title-doc").remove();
+     $("ul#doctor-detail > li").remove();
+
+
      $(`.show-${specialty}-doctors`).show();
      $(`#show-${specialty}-title`).show();
 
@@ -132,8 +142,21 @@ $(document).ready(function() {
          console.log("THIS  "+$(this));
          console.log("ID   "+doctorId);
 
-         //trigger modal by id
+         //We want to see doctor details by some id "lastname"
+         //will need to pass the id to a displayDoctorDetail(id)
+         //how will displayDoctorDetail know about doctors from
+         //API call?
+         //when doctor is clicked just "show detail based on ID"
+
+         //hide prev details
+     $("#doctor-detail li").hide();
+        //show new dr details
+     $("#show-doctor-detail").show();
+     $(`.show-${doctorId}-doctor-detail`).show();
+
+
   });
+
 
   });
 });
