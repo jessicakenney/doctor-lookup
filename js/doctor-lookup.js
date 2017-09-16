@@ -19,41 +19,30 @@ export class DoctorLookup{
     let init = 0;
 
     specialties.data.forEach(function(specialty){
-    //specialties are unique
-    //initialize
-    if (!init){
-        console.log("Init new catArray"+specialty.name+" "+specialty.category);
-          let newRef = new Ref(`${specialty.category}`,[`${specialty.name}`]);
-          categoryArray.push(newRef);
-          init = 1;
-    }
-    //loop thru all existing categories to determine if exists
-    // categoryArray.forEach(function (name){
-    //  testName.push(categoryArray.name);
-    // });
+
     let found = 0;
     if (categories.includes(specialty.category)){
-            console.log("****Category Exists  "+specialty.category);
-            //need to find where in the array
-            for (let i = 0; i < categoryArray.length; i++) {
-              if (categoryArray[i].name === specialty.category) {
-                categoryArray[i].specialties.push(specialty.name);
-                found = 1;
-              }
-            }
-          } else {
-            found = 0;
+        console.log("****Category Exists  "+specialty.category);
+        //need to find where in the array
+        for (let i = 0; i < categoryArray.length; i++) {
+          if (categoryArray[i].name === specialty.category) {
+            categoryArray[i].specialties.push(specialty.name);
+            found = 1;
           }
-        //if not found create a new one
-        if (!found){
-        console.log("New category  "+specialty.category);
-        //create a new ref and push into category Arr
-          let newRef = new Ref(`${specialty.category}`,[`${specialty.name}`]);
-        //and push in specialty
-          categoryArray.push(newRef);
-          console.log("Push into testarray "+newRef.name);
-          categories.push(newRef.name);
         }
+      } else {
+        found = 0;
+      }
+    //if not found create a new one
+    if (!found){
+    console.log("New category  "+specialty.category);
+    //create a new ref and push into category Arr
+      let newRef = new Ref(`${specialty.category}`,[`${specialty.name}`]);
+    //and push in specialty
+      categoryArray.push(newRef);
+      console.log("Push into testarray "+newRef.name);
+      categories.push(newRef.name);
+    }
 
     });
     return categoryArray;

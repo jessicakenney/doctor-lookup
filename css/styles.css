@@ -26,6 +26,13 @@ body{
 #show-specialties {
   display: none;
 }
+ul#specialty-list li {
+  cursor: pointer;
+  color: blue;
+}
+ul#specialty-list li:hover {
+  text-decoration: underline;
+}
 #show-doctors {
   display: none;
 }

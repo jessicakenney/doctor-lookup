@@ -39,7 +39,6 @@ $(document).ready(function() {
     // });
 
     doctorLookup.getSpecialties(displaySpecialties);
-    //$("#show-categories").show();
 
   $("ul#category-list").on('click', 'li',function(){
     let category = $(this).attr("id");
@@ -59,10 +58,17 @@ $(document).ready(function() {
      $(`#show-${category}-title`).show();
   });
 
-  //next
-  // $("ul#speciality-list").on('click', 'li',function(){
-  // });
-  //
+  $("ul#specialty-list").on('click', 'li',function(){
+    let specialty = $(this).attr("id");
+        console.log("THIS  "+$(this));
+        console.log("ID   "+specialty);
+      //when we click on a speciality, do a API request for dr's
+      //in that specialty
+    //doctorLookup.getDoctorBySpecialty(specialty,displayDoctors);
+
+  });
+
+
   });
 
 
