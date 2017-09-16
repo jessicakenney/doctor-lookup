@@ -19,7 +19,7 @@ $(document).ready(function() {
 
       //sort the specialties.name alphabetically
       //make an array of names to sort
-      category.specialties.sort(specialtyCompare);
+      // category.specialties.sort(specialtyCompare);
       // sortedNames.forEach(function(name){
       //   console.log("Sort---> "+name);
       // })
@@ -31,13 +31,13 @@ $(document).ready(function() {
     });
  };
 
- function specialtyCompare(a,b) {
-  if (a.name < b.name)
-    return -1;
-  if (a.name > b.name)
-    return 1;
-  return 0;
-}
+//  function specialtyCompare(a,b) {
+//   if (a.name < b.name)
+//     return -1;
+//   if (a.name > b.name)
+//     return 1;
+//   return 0;
+// }
 
 
  let displayDoctors = function(doctors,specialty){

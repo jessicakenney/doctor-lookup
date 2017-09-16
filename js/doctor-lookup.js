@@ -27,10 +27,16 @@ export class CategoryRef {
   }
 }
 
-export class DoctorLookup{
-
-  constructor(){
+function specialtyNameCompare (a,b) {
+   if (a.name < b.name)
+     return -1;
+   if (a.name > b.name)
+     return 1;
+   return 0;
   }
+
+
+export class DoctorLookup{
 
   getSpecialtiesByCategory(specialties){
     let categoryArray = [];
@@ -39,14 +45,10 @@ export class DoctorLookup{
 
     specialties.data.forEach(function(specialty){
         let newSpecialty = new SpecialtyRef(specialty.name, specialty.uid, specialty.description);
-        //console.log(`SPECIALTY REF ${newSpecialty.name}, ${newSpecialty.uid},${newSpecialty.description}`);
         let found = 0;
         if (categories.includes(specialty.category)){
-            //console.log("****Category Exists  "+specialty.category);
-            //need to find where in the array
             for (let i = 0; i < categoryArray.length; i++) {
               if (categoryArray[i].name === specialty.category) {
-                //categoryArray[i].specialties.push(specialty.name);
                 categoryArray[i].specialties.push(newSpecialty);
                 found = 1;
               }
@@ -54,17 +56,18 @@ export class DoctorLookup{
           } else {
             found = 0;
           }
-        //if not found create a new one
+        //If not found create a new one
         if (!found){
           console.log("New category  "+specialty.category);
-          //create a new CategoryRef and push into category Arr
-          //let newRef = new CategoryRef(`${specialty.category}`,[`${specialty.name}`]);
+          //Create a new CategoryRef and push into category Arr
           let newRef = new CategoryRef(specialty.category,[newSpecialty]);
-          //and push in specialty
           categoryArray.push(newRef);
-          let foo = categoryArray.length - 1;
           categories.push(newRef.name);
         }
+    });
+    // Sort the Specialties alphabetically in Each Category
+    categoryArray.forEach(function(category){
+        category.specialties.sort(specialtyNameCompare);
     });
     return categoryArray;
   }
@@ -75,21 +78,6 @@ export class DoctorLookup{
         console.log("Doctors KEY : "+key);
       }
     doctors.data.forEach(function(doctor){
-      console.log("Profile"+doctor.profile);
-      console.log("Practices"+doctor.practices);
-      console.log("First"+doctor.profile.first_name);
-      console.log("Title"+doctor.profile.title);
-      console.log("Street"+doctor.practices[0].visit_address.street);
-      //console.log("Accepts"+doctor.accepts_new_patients);
-      // for (let key in doctor ){
-      //   console.log("KEY : "+key);
-      // }
-      // for (let key in doctor.practices[0] ){
-      //   console.log("KEY.practices : "+key);
-      // }
-      // for (let key in doctor.profile ){
-      //   console.log("KEY.profile : "+key);
-      // }
         let newDoctor = new DoctorRef(doctor.profile.first_name, doctor.profile.last_name, doctor.profile.title, doctor.practices[0].accepts_new_patients, doctor.practices[0].visit_address.street, doctor.practices[0].visit_address.city, doctor.practices[0].visit_address.zip, doctor.practices[0].phones.number);
         newDoctors.push(newDoctor);
       });
@@ -107,6 +95,7 @@ export class DoctorLookup{
         console.log("getSpecialties: something went wrong");
       });
   }
+
   getDoctorsBySpecialty(specialty, displayDoctors) {
     let data;
     let url = `https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=${specialty}&location=45.55%2C-122.63%2C10&user_location=45.55%2C-122.63&sort=last-name-asc&skip=0&limit=25&user_key=${apiKey}`;
@@ -119,10 +108,5 @@ export class DoctorLookup{
         console.log("getDoctorsBySpecialty: something went wrong");
       });
   }
-
-
-
-
-
 
 }
