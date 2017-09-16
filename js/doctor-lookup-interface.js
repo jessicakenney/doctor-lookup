@@ -9,7 +9,6 @@ $(document).ready(function() {
   let displaySpecialties = function(categories){
     $("#show-categories").show();
     categories.forEach(function(category){
-      //category.specialties.name.sort();
       //console.log("CATEGORY : "+category.name+" SPECIALTIES :  "+category.specialties.name);
 
       // Category List
@@ -18,11 +17,28 @@ $(document).ready(function() {
       // Specialty Lists (by Category)
       $('ul#specialty-list').prepend(`<h3 class="show-title-cat" id="show-${category.name}-title">[${category.name}]</h3>`);
 
+      //sort the specialties.name alphabetically
+      //make an array of names to sort
+      category.specialties.sort(specialtyCompare);
+      // sortedNames.forEach(function(name){
+      //   console.log("Sort---> "+name);
+      // })
+      //now go through specialties by sortedName
       category.specialties.forEach(function(specialty){
+        console.log("Sort---> "+specialty.name);
         $('ul#specialty-list').append(`<li class="show-${category.name}-specialties" id="${specialty.uid}"data-toggle="tooltip" data-placement="bottom" title="${specialty.description}">${specialty.name}</li>`);
       });
     });
  };
+
+ function specialtyCompare(a,b) {
+  if (a.name < b.name)
+    return -1;
+  if (a.name > b.name)
+    return 1;
+  return 0;
+}
+
 
  let displayDoctors = function(doctors,specialty){
     $('ul#doctor-list').prepend(`<h3 class="show-title-doc" id="show-${specialty}-title">[${specialty}]</h3>`);

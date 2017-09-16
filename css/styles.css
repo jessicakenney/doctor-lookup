@@ -11,7 +11,7 @@ body{
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: 100%;
   /*font-family: cursive;*/
 }
 h1 {
@@ -21,7 +21,7 @@ h1 {
   background-color: inherit;
 }
 h3{
-  
+
 }
 #show-categories {
   display: none;
