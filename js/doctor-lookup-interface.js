@@ -33,38 +33,14 @@ $(document).ready(function() {
       //console.log("DOCTOR"+doctor.first+" "+doctor.last+" Specialty"+specialty);
       $('ul#doctor-list').append(`<li class="${doctors-specialty}" id="${doctor.last}"> ${doctor.first} ${doctor.last} ${doctor.title}</li>`);
 
-     //$(`.show-${doctorId}-doctor-detail`).show();
+      //---------------Doctor Detail -----------------------------//
+       $('ul#doctor-detail').append(`<h3 class="show-${doctor.last}-doctor-detail"> ${doctor.first} ${doctor.last} ${doctor.title}</h3> <hr class="show-${doctor.last}-doctor-detail"> <td class="show-${doctor.last}-doctor-detail" ><img src=${doctor.image_url} class="show-${doctor.last}-doctor-detail"> </img></td> <h4 class="show-${doctor.last}-doctor-detail"> ${doctor.practice_name}</h4> <h5 class="show-${doctor.last}-doctor-detail"> ${doctor.street} ${doctor.city} ${doctor.zip}</h5>`);
+       doctor.phones.forEach(function(phone){
+         $('ul#doctor-detail').append(`<p class="show-${doctor.last}-doctor-detail"> ${phone.type} ${phone.number} </p>`);
+       })
+      $('ul#doctor-detail').append(`<p class="show-${doctor.last}-doctor-detail"><em>Accepting New Patients: ${doctor.accepts}</em></p>`);
 
-      $('ul#doctor-detail').append(`<li class="show-${doctor.last}-doctor-detail" id=""> DETAILS..${doctor.first} ${doctor.last} ${doctor.title}</li>`);
-
-      // //-----------Modal for remaining doctorinfor?
-      // <!-- Button trigger modal -->
-      // <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-      //   Launch demo modal
-      // </button>
-      //
-      // <!-- Modal -->
-      // <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      //   <div class="modal-dialog" role="document">
-      //     <div class="modal-content">
-      //       <div class="modal-header">
-      //         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      //         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      //       </div>
-      //       <div class="modal-body">
-      //         ...
-      //       </div>
-      //       <div class="modal-footer">
-      //         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      //         <button type="button" class="btn btn-primary">Save changes</button>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
-      // //-----------End Modal for remaining doctorinfor?
-
-
-    });
+     });
  };
 
  //--------------- Find By Specialty Option --------------------//
@@ -112,7 +88,7 @@ $(document).ready(function() {
 
      //---Initialize
      $(function () {
-       $('[data-toggle="tooltip"]').tooltip()
+       $('[data-toggle="tooltip"]').tooltip();
      })
   });
 
@@ -128,7 +104,7 @@ $(document).ready(function() {
      $("#doctor-list li").hide();
      $("#show-doctor-detail").hide();
      $("h3.show-title-doc").remove();
-     $("ul#doctor-detail > li").remove();
+     //$("ul#doctor-detail > li").remove();
 
 
      $(`.show-${specialty}-doctors`).show();
@@ -149,9 +125,9 @@ $(document).ready(function() {
          //when doctor is clicked just "show detail based on ID"
 
          //hide prev details
-     $("#doctor-detail li").hide();
         //show new dr details
      $("#show-doctor-detail").show();
+     $("#doctor-detail > *").hide();
      $(`.show-${doctorId}-doctor-detail`).show();
 
 

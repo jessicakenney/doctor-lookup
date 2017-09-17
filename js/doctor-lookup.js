@@ -1,15 +1,17 @@
 var apiKey = require('./../.env').apiKey;
 
 export class DoctorRef{
-  constructor(first,last,title,accepts,street,city,zip,number){
+  constructor(first,last,title,image_url,accepts,street,city,zip,phones,practice_name) {
     this.first = first;
     this.last = last;
     this.title = title;
+    this.image_url = image_url;
     this.accepts = accepts;
     this.street = street;
     this.city = city;
     this.zip = zip;
-    this.number = number;
+    this.phones = phones;
+    this.practice_name = practice_name;
   }
 }
 
@@ -78,8 +80,9 @@ export class DoctorLookup{
         console.log("Doctors KEY : "+key);
       }
     doctors.data.forEach(function(doctor){
-        let newDoctor = new DoctorRef(doctor.profile.first_name, doctor.profile.last_name, doctor.profile.title, doctor.practices[0].accepts_new_patients, doctor.practices[0].visit_address.street, doctor.practices[0].visit_address.city, doctor.practices[0].visit_address.zip, doctor.practices[0].phones.number);
+        let newDoctor = new DoctorRef(doctor.profile.first_name, doctor.profile.last_name, doctor.profile.title, doctor.profile.image_url, doctor.practices[0].accepts_new_patients, doctor.practices[0].visit_address.street, doctor.practices[0].visit_address.city, doctor.practices[0].visit_address.zip, doctor.practices[0].phones, doctor.practices[0].name);
         newDoctors.push(newDoctor);
+      console.log("####newDoctor practice name "+newDoctor.practice_name+" picture "+newDoctor.image_url);
       });
     return newDoctors;
   }
