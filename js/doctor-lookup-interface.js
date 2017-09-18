@@ -9,7 +9,6 @@ $(document).ready(function() {
   let displaySpecialties = function(categories){
     $("#show-categories").show();
     categories.forEach(function(category){
-      //console.log("CATEGORY : "+category.name+" SPECIALTIES :  "+category.specialties.name);
 
       // Category List
       $('ul#category-list').append(`<li class="specialty-categories" id="${category.name}"> ${category.name}</li>`);
@@ -27,10 +26,12 @@ $(document).ready(function() {
 
  let displayDoctors = function(doctors,specialty){
 
+    if (doctors.length === 0 ){
+      $('ul#doctor-list').append(`<p class="show-title-doc"><em>Your request for a ${specialty} doctor has zero entries.</em></p>`)
+    }
     $('ul#doctor-list').prepend(`<h3 class="show-title-doc" id="show-${specialty}-title">[${specialty}]</h3>`);
 
     doctors.forEach(function(doctor){
-      //console.log("DOCTOR"+doctor.first+" "+doctor.last+" Specialty"+specialty);
       $('ul#doctor-list').append(`<li class="${doctors-specialty}" id="${doctor.last}"> ${doctor.first} ${doctor.last} ${doctor.title}</li>`);
 
       //---------------Doctor Detail -----------------------------//
@@ -43,7 +44,7 @@ $(document).ready(function() {
      });
  };
 
- //--------------- Find By Specialty Option --------------------//
+ //--------------- "Find By Specialty" Option --------------------//
  $('#specialty-option').submit(function(event) {
     event.preventDefault();
     $("#category-list li").remove();
@@ -53,12 +54,13 @@ $(document).ready(function() {
      $("ul#specialty-list > li").remove();
      $("#show-specialties").hide();
 
-     $("ul#doctor-list > h3").remove();
-     $("ul#doctor-list > li").remove();
+     $("ul#doctor-list > *").remove();
+     $("ul#doctor-list + h3").remove();
+     $("ul#doctor-list + li").remove();
      $("#show-doctors").hide();
 
-     $("h3.show-title-doc").remove();
-     $("ul#doctor-detail > li").remove();
+     $(".show-title-doc").remove();
+     $("ul#doctor-detail > *").remove();
      $("#show-doctor-detail").hide();
 
     doctorLookup.getSpecialties(displaySpecialties);
@@ -67,17 +69,12 @@ $(document).ready(function() {
  //--------------- Category- click --------------------//
   $("ul#category-list").on('click', 'li',function(){
     let category = $(this).attr("id");
-    // let re=/\d+/;
-    // let category = re.exec(id);
-
-        console.log("THIS  "+$(this));
-        console.log("ID   "+category);
 
      //alert("Show specialties in a category "+category);
-     //get id of category clicked
+     //Get id of category clicked
      //hide everything ..then show what was clicked
      $("#specialty-list li").hide();
-     $(`.show-title-cat`).hide();
+     $(".show-title-cat").hide();
      $("#show-doctors").hide();
      $("#show-doctor-detail").hide();
 
@@ -86,7 +83,7 @@ $(document).ready(function() {
      $(`.show-${category}-specialties`).show();
      $(`#show-${category}-title`).show();
 
-     //---Initialize
+     //--------- Initialize tooltips
      $(function () {
        $('[data-toggle="tooltip"]').tooltip();
      })
@@ -98,14 +95,16 @@ $(document).ready(function() {
 
       //when we click on a speciality, do a API request for dr's
       //in that specialty
+     $("ul#doctor-list > *").remove();
+     $("ul#doctor-list + h3").remove();
+     $("ul#doctor-list + li").remove();
     doctorLookup.getDoctorsBySpecialty(specialty,displayDoctors);
      $("#show-doctors").show();
 
-     $("#doctor-list li").hide();
+     //$("#doctor-list li").hide();
      $("#show-doctor-detail").hide();
-     $("h3.show-title-doc").remove();
-     //$("ul#doctor-detail > li").remove();
-
+     //$(".show-title-doc").remove();
+     //$("ul#doctor-detail > *").remove();
 
      $(`.show-${specialty}-doctors`).show();
      $(`#show-${specialty}-title`).show();
@@ -115,21 +114,14 @@ $(document).ready(function() {
 
   $("ul#doctor-list").on('click', 'li',function(){
      let doctorId = $(this).attr("id");
-         console.log("THIS  "+$(this));
-         console.log("ID   "+doctorId);
+     //We want to see doctor details by a dr id->"lastname"
+     //When doctor is clicked  "show detail"
 
-         //We want to see doctor details by some id "lastname"
-         //will need to pass the id to a displayDoctorDetail(id)
-         //how will displayDoctorDetail know about doctors from
-         //API call?
-         //when doctor is clicked just "show detail based on ID"
-
-         //hide prev details
-        //show new dr details
+     //hide prev details
+    //show new dr details
      $("#show-doctor-detail").show();
      $("#doctor-detail > *").hide();
      $(`.show-${doctorId}-doctor-detail`).show();
-
 
   });
 

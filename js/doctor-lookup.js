@@ -60,7 +60,6 @@ export class DoctorLookup{
           }
         //If not found create a new one
         if (!found){
-          console.log("New category  "+specialty.category);
           //Create a new CategoryRef and push into category Arr
           let newRef = new CategoryRef(specialty.category,[newSpecialty]);
           categoryArray.push(newRef);
@@ -76,13 +75,9 @@ export class DoctorLookup{
 
   getDoctorData(doctors){
     let newDoctors = [];
-      for (let key in doctors ){
-        console.log("Doctors KEY : "+key);
-      }
     doctors.data.forEach(function(doctor){
         let newDoctor = new DoctorRef(doctor.profile.first_name, doctor.profile.last_name, doctor.profile.title, doctor.profile.image_url, doctor.practices[0].accepts_new_patients, doctor.practices[0].visit_address.street, doctor.practices[0].visit_address.city, doctor.practices[0].visit_address.zip, doctor.practices[0].phones, doctor.practices[0].name);
         newDoctors.push(newDoctor);
-      console.log("####newDoctor practice name "+newDoctor.practice_name+" picture "+newDoctor.image_url);
       });
     return newDoctors;
   }
@@ -95,7 +90,7 @@ export class DoctorLookup{
         displaySpecialties(this.getSpecialtiesByCategory(data));
       })
       .fail ( () =>{
-        console.log("getSpecialties: something went wrong");
+        console.log("getSpecialties: API request for specialties failed.");
       });
   }
 
@@ -108,7 +103,7 @@ export class DoctorLookup{
         displayDoctors(this.getDoctorData(data),specialty);
       })
       .fail ( () =>{
-        console.log("getDoctorsBySpecialty: something went wrong");
+        console.log("getDoctorsBySpecialty: API request for doctor failed. ");
       });
   }
 
